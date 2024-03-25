@@ -1,13 +1,18 @@
-import { Box } from '@mui/material';
+import { Box, SxProps, Theme } from '@mui/material';
 import React, { FunctionComponent, PropsWithChildren, SyntheticEvent } from 'react';
 import TouchRipple, {TouchRippleActions} from '@mui/material/ButtonBase/TouchRipple';
 
 interface IProps {
     isSelected: boolean;
     onClick(): void;
+	sx?: SxProps<Theme> | undefined;
+	selectedColor?: string;
+	selectedBackground?: string;
 }
 
-const ToggleButton: FunctionComponent<PropsWithChildren<IProps>> = ({children, isSelected, onClick}) => {
+const ToggleButton: FunctionComponent<PropsWithChildren<IProps>> = ({
+	children, isSelected, onClick, sx, selectedBackground, selectedColor,
+}) => {
 	const rippleRef = React.useRef<TouchRippleActions>(null);
 
 	const onRippleStart = (e: SyntheticEvent) => {
@@ -32,7 +37,7 @@ const ToggleButton: FunctionComponent<PropsWithChildren<IProps>> = ({children, i
 				width: '100%',
 				height: 38,
 				border: 'none',
-				borderRadius: 1,
+				borderRadius: 8,
 				background: '#EDFAFE',
 				color: '#6E7B87',
 				p: 1,
@@ -43,9 +48,11 @@ const ToggleButton: FunctionComponent<PropsWithChildren<IProps>> = ({children, i
 					background: '#FFFFFFB9',
 				},
 
+				...sx,
+
 				...(isSelected && {
-					color: '#4788EA',
-					background: '#FFFFFF',
+					color: selectedColor ?? '#4788EA',
+					background: selectedBackground ?? '#FFFFFF',
 				}),
 			}}
 		>
