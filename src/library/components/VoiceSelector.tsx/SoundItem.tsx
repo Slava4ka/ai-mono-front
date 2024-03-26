@@ -33,7 +33,7 @@ const SoundItem: React.FunctionComponent<IProps> = ({ isSelected, onClick, title
 		<Typography variant="body1" sx={{ color: '#000010', fontSize: 14, fontWeight: '600' }}>{title}</Typography>
 
 		<IconButton sx={{ background: '#DBDBDD' }} size="small">
-			{false ? <PlayArrowIcon sx={{ height: 24, width: 24 }} /> : <PauseIcon sx={{ height: 24, width: 24 }} />}
+			{false ? <PauseIcon sx={{ height: 24, width: 24 }} /> : <PlayArrowIcon sx={{ height: 24, width: 24 }} />}
 		</IconButton>
 	</Stack>
 );

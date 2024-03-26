@@ -122,7 +122,7 @@ const SoundDownload: React.FunctionComponent<IProps> = () => {
 					left: 90,
 				}}
 			>
-				<Box sx={INFO_SX}>mp4</Box>
+				<Box sx={INFO_SX}>.wav</Box>
 				<Box sx={INFO_SX}>{'< 30MB'}</Box>
 				<Box sx={INFO_SX}>{'< 30сек'}</Box>
 			</Stack>
