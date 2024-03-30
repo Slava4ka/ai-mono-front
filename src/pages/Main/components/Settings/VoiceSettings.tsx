@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Paper } from '@mui/material';
+import SyncIcon from '@mui/icons-material/Sync';
 
 import SoundDownload from 'library/components/SoundDownload';
 import TextEdit from 'library/components/TextEdit';
@@ -11,15 +12,21 @@ const VoiceSettings: React.FunctionComponent<IProps> = () => (
 	<>
 		<SoundDownload />
 
-		<Paper sx={{ minHeight: 196, width: '100%', p: 2 }}>
+		<Paper sx={{
+			minHeight: 196, width: '100%', p: 2, borderRadius: 2,
+		}}
+		>
 			<VoiceSelector />
 		</Paper>
 
-		<Paper sx={{ minHeight: 200, width: '100%', p: 2 }}>
+		<Paper sx={{
+			minHeight: 200, width: '100%', p: 2, borderRadius: 2,
+		}}
+		>
 			<TextEdit />
 		</Paper>
 
-		<Button fullWidth variant="contained" color="primary" sx={{ textTransform: 'capitalize' }}>Сгенерировать</Button>
+		<Button fullWidth variant="contained" color="primary" sx={{ textTransform: 'capitalize' }} endIcon={<SyncIcon />}>Сгенерировать</Button>
 	</>
 );
 

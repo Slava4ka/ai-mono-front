@@ -13,6 +13,8 @@ import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import { OnProgressProps } from 'react-player/base';
 
+import logoMarkUrl from '../../../resources/images/logoMark.svg';
+
 interface IProps {}
 
 const Player: React.FunctionComponent<IProps> = () => {
@@ -67,6 +69,7 @@ const Player: React.FunctionComponent<IProps> = () => {
 	return (
 		<Stack
 			sx={{
+				position: 'relative',
 				overflow: 'hidden',
 				borderRadius: '8px',
 				minWidth: 924,
@@ -74,6 +77,18 @@ const Player: React.FunctionComponent<IProps> = () => {
 				justifyContent: 'flex-end',
 			}}
 		>
+			<Box
+				component="img"
+				src={logoMarkUrl}
+				sx={{
+					position: 'absolute',
+					left: '1.73%',
+					right: '95.67%',
+					top: '2.83%',
+					bottom: '92.93%',
+
+				}}
+			/>
 			<ReactPlayer
 				ref={videoPlayerRef}
 				width="100%"
@@ -134,7 +149,6 @@ const Player: React.FunctionComponent<IProps> = () => {
 						{`${formatCurrentTime}/${formatDuration}`}
 					</Typography>
 				</Box>
-
 			</Stack>
 
 		</Stack>

@@ -10,7 +10,7 @@ import VoiceSettings from './VoiceSettings';
 interface IProps {}
 
 const Settings: React.FunctionComponent<IProps> = () => {
-	const [dataType, setDataType] = useState(DATA_TYPE.VOICE);
+	const [dataType, setDataType] = useState(DATA_TYPE.AVATAR);
 
 	const isAvatarSelected = dataType === DATA_TYPE.AVATAR;
 	const isVoiceSelected = dataType === DATA_TYPE.VOICE;

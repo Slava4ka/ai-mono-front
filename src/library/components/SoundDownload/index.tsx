@@ -14,7 +14,7 @@ const INFO_SX: SxProps<Theme> = {
 	background: '#4788EA',
 	borderRadius: 1,
 	px: '14px',
-	py: '10px',
+	py: '6px',
 	fontSize: '16px',
 	fontWeight: 'bold',
 	color: 'white',

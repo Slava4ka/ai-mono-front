@@ -24,6 +24,10 @@ const SoundItem: React.FunctionComponent<IProps> = ({ isSelected, onClick, title
 			borderWidth: '4px',
 			cursor: 'pointer',
 
+			'&:hover': {
+				borderColor: '#4788EAB9',
+			},
+
 			...(isSelected && {
 				borderColor: '#4788EA',
 			}),
