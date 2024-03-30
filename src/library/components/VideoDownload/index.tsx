@@ -9,7 +9,10 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 import addVideoUrl from '../../../resources/images/addVideo.svg';
 
-interface IProps {}
+interface IProps {
+	videoPath: string | undefined;
+	setVideoPath(path: string): void;
+}
 
 const INFO_SX: SxProps<Theme> = {
 	background: '#4788EA',

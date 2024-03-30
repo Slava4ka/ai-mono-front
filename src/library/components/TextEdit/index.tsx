@@ -1,15 +1,20 @@
 import React from 'react';
 import { Stack, TextField, Typography } from '@mui/material';
 
-interface IProps {}
+interface IProps {
+	value: string;
+	handleChangeValue(value: string): void;
+}
 
-const TextEdit: React.FunctionComponent<IProps> = () => (
+const TextEdit: React.FunctionComponent<IProps> = ({value, handleChangeValue}) => (
 	<Stack direction="column" spacing={2}>
 		<Typography variant="body1" sx={{ color: '#6E7B87', fontWeight: 'bold' }}>Текст</Typography>
 
 		<TextField
 			multiline
 			rows={4}
+			value={value}
+			onChange={(e) => handleChangeValue(e.target.value)}
 			sx={{
 				'& .MuiOutlinedInput-root': {
 					'& fieldset': {

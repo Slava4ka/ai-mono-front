@@ -3,42 +3,47 @@ import { Box, Typography } from '@mui/material';
 
 interface IProps {
 	avatarUrl: string;
-	isSelected?: string;
 	name: string;
+	isSelected?: boolean;
+	onSelectAvatar(): void;
 }
 
-const AvatarSelector: React.FunctionComponent<IProps> = ({ avatarUrl, isSelected, name}) => (
-	<Box sx={{
-		overflow: 'hidden',
-		position: 'relative',
-		height: 200,
-		display: 'flex',
-		alignItems: 'end',
-		justifyContent: 'center',
-		width: '100%',
-		background: '#FFF',
-		borderRadius: 2,
-		cursor: 'pointer',
-		borderColor: '#DBDBDD',
-		borderStyle: 'solid',
-		borderWidth: '3px',
+const AvatarSelector: React.FunctionComponent<IProps> = ({
+	avatarUrl, isSelected, name, onSelectAvatar,
+}) => (
+	<Box
+		sx={{
+			overflow: 'hidden',
+			position: 'relative',
+			height: 200,
+			display: 'flex',
+			alignItems: 'end',
+			justifyContent: 'center',
+			width: '100%',
+			background: '#FFF',
+			borderRadius: 2,
+			cursor: 'pointer',
+			borderColor: '#DBDBDD',
+			borderStyle: 'solid',
+			borderWidth: '3px',
 
-		'&:hover': {
-			borderColor: '#4788EAB9',
+			'&:hover': {
+				borderColor: '#4788EAB9',
 
-			img: {
-				transform: 'scale(1.1)',
+				img: {
+					transform: 'scale(1.1)',
+				},
 			},
-		},
 
-		...(isSelected && {
-			borderColor: '#4788EA',
+			...(isSelected && {
+				borderColor: '#4788EA',
 
-			img: {
-				transform: 'scale(1.1)',
-			},
-		}),
-	}}
+				img: {
+					transform: 'scale(1.1)',
+				},
+			}),
+		}}
+		onClick={onSelectAvatar}
 	>
 		<Box
 			component="img"

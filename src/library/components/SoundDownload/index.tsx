@@ -8,7 +8,10 @@ import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import soundWaveURL from '../../../resources/images/soundWave.svg';
 
-interface IProps {}
+interface IProps {
+	audioPath: string | undefined;
+	handleChangeAudioPath(audioPath: string): void;
+}
 
 const INFO_SX: SxProps<Theme> = {
 	background: '#4788EA',

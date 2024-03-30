@@ -26,7 +26,10 @@ const ToggleButton: FunctionComponent<PropsWithChildren<IProps>> = ({
 	return (
 		<Box
 			component="button"
-			onClick={onClick}
+			onClick={(e) => {
+				e.preventDefault();
+				onClick();
+			}}
 			onMouseDown={onRippleStart}
 			onMouseUp={onRippleStop}
 			onMouseLeave={onRippleStop}
