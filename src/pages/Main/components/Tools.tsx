@@ -1,20 +1,23 @@
-import React, { useMemo } from 'react';
-import { Container, Grid } from '@mui/material';
-import VideoContext from 'library/utils/VideoContext';
+import React from 'react';
+import {
+	Box, Container, Grid, Stack,
+	Typography,
+} from '@mui/material';
+import useGenerateVideo from 'library/hooks/useGenerateVideo';
 import Title from './Title';
 import Player from './Player';
 import Settings from './Settings';
 
+import PreviewUrl from '../../../resources/images/Preview.png';
+
 interface IProps {}
 
 const Tools: React.FunctionComponent<IProps> = () => {
-	const [videoFile, setVideoFile] = React.useState<File>();
-
-	const contextValue = useMemo(() => ({ file: videoFile, setVideoFile }), [videoFile]);
+	const { isLoading, handleGenerateVideo } = useGenerateVideo();
 
 	return (
-		<VideoContext.Provider value={contextValue}>
-			<Container maxWidth="xl" sx={{ my: 5 }}>
+		<Container maxWidth="xl" sx={{ my: 5, height: '100%' }}>
+			{!isLoading && (
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
 						<Title />
@@ -25,11 +28,49 @@ const Tools: React.FunctionComponent<IProps> = () => {
 					</Grid>
 
 					<Grid item xs={4} mt={1}>
-						<Settings />
+						<Settings handleGenerateVideo={handleGenerateVideo} />
 					</Grid>
 				</Grid>
-			</Container>
-		</VideoContext.Provider>
+			)}
+			{isLoading && (
+				<Stack
+					direction="column"
+					spacing={2}
+					sx={{
+						height: '100%',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+				>
+					<Box component="img" src={PreviewUrl} />
+					<Typography
+						variant="h5"
+						sx={{
+							position: 'relative',
+							color: '#6E7B87',
+
+							'&::after': {
+								content: '"."',
+								animation: 'ellipsis 1s infinite',
+								position: 'absolute',
+								right: -21,
+								width: 20,
+								top: 0,
+							},
+							'@keyframes ellipsis': {
+								'0%': { content: '".  "' },
+								'25%': { content: '".. "' },
+								'50%': { content: '"..."' },
+								'75%': { content: '".. "' },
+								'100%': { content: '".  "' },
+							},
+						}}
+					>
+						Подготовка видео
+					</Typography>
+				</Stack>
+			)}
+		</Container>
 	);
 };
 export default Tools;

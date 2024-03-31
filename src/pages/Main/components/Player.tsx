@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import {
 	Box, IconButton, Slider, Stack,
@@ -15,14 +15,20 @@ import { OnProgressProps } from 'react-player/base';
 
 import { useSelector } from 'react-redux';
 import { RootState } from 'main/rootReducer';
+import { rabbitStub } from 'library/consts/content';
 import logoMarkUrl from '../../../resources/images/logoMark.svg';
 
 interface IProps {}
 
 const Player: React.FunctionComponent<IProps> = () => {
 	const videoPlayerRef = useRef<ReactPlayer>(null);
+	const [src, setSrc] = useState('');
 
 	const contentUrl = useSelector((state: RootState) => state.systemSlice.videoContentUrl);
+
+	useEffect(() => {
+		setSrc(contentUrl);
+	}, [contentUrl]);
 
 	const [videoState, setVideoState] = useState({
 		isPlaying: false,
@@ -98,7 +104,8 @@ const Player: React.FunctionComponent<IProps> = () => {
 				ref={videoPlayerRef}
 				width="100%"
 				height="100%"
-				url={contentUrl}
+				url={src}
+				onError={() => setSrc(rabbitStub)}
 				playing={isPlaying}
 				volume={volume}
 				muted={muted}

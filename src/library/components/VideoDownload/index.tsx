@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
 	Box,
 	Button,
@@ -10,8 +10,7 @@ import {
 	Typography,
 } from '@mui/material';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { isEmpty, isNil, isNotNil } from 'ramda';
+import { isNil, isNotNil } from 'ramda';
 import { CancelTokenSource } from 'axios';
 import BlockIcon from '@mui/icons-material/Block';
 import CloseIcon from '@mui/icons-material/Close';
@@ -19,9 +18,7 @@ import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 import mediaDownloader from 'library/utils/mediaDownloader';
-import VideoContext from 'library/utils/VideoContext';
 import bytesToMB from 'library/utils/bytesToMB';
-import { dropVideoContentUrl, setVideoContentUrl } from 'library/slices/system.slice';
 import VisuallyHiddenInput from 'library/components/VisuallyHiddenInput';
 
 import addVideoUrl from '../../../resources/images/addVideo.svg';
@@ -42,12 +39,9 @@ const INFO_SX: SxProps<Theme> = {
 };
 
 const VideoDownload: React.FunctionComponent<IProps> = ({ videoPath, setVideoPath }) => {
-	const dispatch = useDispatch();
-
 	const [showInfo, setShowInfo] = useState(false);
 	const [progress, setProgress] = useState<number>();
-
-	const videoContext = useContext(VideoContext);
+	const [fileSize, setFileSize] = useState<number>();
 
 	const cancelRef = useRef<CancelTokenSource>();
 
@@ -67,7 +61,7 @@ const VideoDownload: React.FunctionComponent<IProps> = ({ videoPath, setVideoPat
 		>
 			{/* Файл не загружен */}
 			{
-				isEmpty(videoPath) && isNil(progress) && (
+				isNil(fileSize) && isNil(progress) && (
 					<>
 						<Box
 							sx={{
@@ -132,8 +126,7 @@ const VideoDownload: React.FunctionComponent<IProps> = ({ videoPath, setVideoPat
 											'video',
 											(data, res) => {
 												setVideoPath(res ?? data.name);
-												videoContext?.setVideoFile(videoFile);
-												dispatch(setVideoContentUrl(URL.createObjectURL(videoFile)));
+												setFileSize(videoFile.size);
 											},
 										);
 									} else {
@@ -152,7 +145,7 @@ const VideoDownload: React.FunctionComponent<IProps> = ({ videoPath, setVideoPat
 
 			{/* Загрузка файла */}
 			{
-				isEmpty(videoPath) && isNotNil(progress) && (
+				isNotNil(progress) && (
 					<>
 						<IconButton
 							sx={{
@@ -203,7 +196,7 @@ const VideoDownload: React.FunctionComponent<IProps> = ({ videoPath, setVideoPat
 
 			{/* Файл загружен */}
 			{
-				!isEmpty(videoPath) && isNil(progress) && (
+				isNotNil(fileSize) && isNil(progress) && (
 					<>
 						<IconButton
 							sx={{
@@ -226,11 +219,7 @@ const VideoDownload: React.FunctionComponent<IProps> = ({ videoPath, setVideoPat
 									background: '#FFFFFF80',
 								},
 							}}
-							onClick={() => {
-								setVideoPath('');
-								videoContext?.setVideoFile(undefined);
-								dispatch(dropVideoContentUrl());
-							}}
+							onClick={() => setVideoPath('')}
 						>
 							<CloseIcon />
 						</IconButton>
@@ -247,7 +236,7 @@ const VideoDownload: React.FunctionComponent<IProps> = ({ videoPath, setVideoPat
 							}}
 						>
 							<Typography variant="body1" sx={{ fontWeight: 'bold', color: '#FFF' }}>Видеофайл загружен</Typography>
-							<Typography variant="caption" sx={{ color: '#FFF' }}>{`${videoPath} ${bytesToMB(videoContext?.file?.size ?? 0)}MB`}</Typography>
+							<Typography variant="caption" sx={{ color: '#FFF' }}>{`${videoPath} ${bytesToMB(fileSize ?? 0)}MB`}</Typography>
 						</Stack>
 					</>
 				)

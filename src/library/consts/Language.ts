@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-shadow
 enum LANGUAGE {
-    RUSSIAN,
-    ENGLISH
+    RUSSIAN = 'ru',
+    ENGLISH = 'en'
 }
 
 export default LANGUAGE;

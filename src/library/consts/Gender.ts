@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-shadow
 enum GENDER {
-    MALE,
-    FEMALE,
+    MALE ='male',
+    FEMALE = 'female',
 }
 
 export default GENDER;

@@ -3,28 +3,35 @@ import { isEmpty } from 'ramda';
 import { useForm } from 'react-hook-form';
 import { Stack, Button } from '@mui/material';
 import SyncIcon from '@mui/icons-material/Sync';
+import { toast } from 'react-toastify';
 
 import ToggleButton from 'library/components/ToggleButton';
 import DATA_TYPE from 'library/consts/DataType';
 import GENDER from 'library/consts/Gender';
 import LANGUAGE from 'library/consts/Language';
-import VIDEO_TYPE from 'library/consts/VideoType';
 
+import { useDispatch } from 'react-redux';
+import { setVideoContentUrl } from 'library/slices/system.slice';
+import { DEFAULT_AVATAR } from 'library/consts/content';
+import { Payload } from 'library/hooks/useGenerateVideo';
 import VideoSettings from './VideoSettings';
 import VoiceSettings from './VoiceSettings';
 
 interface IFormData {
-	gender?: GENDER;
-	language?: LANGUAGE;
+	gender: GENDER;
+	language: LANGUAGE;
 	audioPath: string;
 	text: string;
-	videoType: VIDEO_TYPE;
 	videoPath: string;
 }
 
-interface IProps {}
+interface IProps {
+	handleGenerateVideo(payload: Payload): void;
+}
 
-const Settings: React.FunctionComponent<IProps> = () => {
+const Settings: React.FunctionComponent<IProps> = ({ handleGenerateVideo }) => {
+	const dispatch = useDispatch();
+
 	const [dataType, setDataType] = useState(DATA_TYPE.AVATAR);
 
 	const isAvatarSelected = dataType === DATA_TYPE.AVATAR;
@@ -34,8 +41,7 @@ const Settings: React.FunctionComponent<IProps> = () => {
 		{
 			defaultValues: {
 				audioPath: '',
-				videoType: VIDEO_TYPE.ANASTASIA,
-				videoPath: '',
+				videoPath: DEFAULT_AVATAR,
 				gender: GENDER.FEMALE,
 				language: LANGUAGE.RUSSIAN,
 				text: '',
@@ -44,24 +50,34 @@ const Settings: React.FunctionComponent<IProps> = () => {
 	);
 
 	const {
-		text, videoType, audioPath, gender, language, videoPath,
+		text, audioPath, gender, language, videoPath,
 	} = watch();
 
 	const onSubmit = handleSubmit(async (data) => {
-		console.log(data);
+		if (isEmpty(data.text) && isEmpty(data.audioPath)) {
+			toast.error('Поле "текст" не может быть пустым');
+			return;
+		}
+
+		const payload = {
+			gender: isEmpty(audioPath) ? data.gender : '0',
+			language: isEmpty(audioPath) ? data.language : '0',
+			text: isEmpty(audioPath) ? data.text : '0',
+			audio_path: isEmpty(audioPath) ? '0' : data.audioPath,
+			video_path: data.videoPath,
+		};
+
+		handleGenerateVideo(payload);
 	});
 
 	const handleVideoPath = (path: string) => {
-		if (!isEmpty(path)) {
-			setValue('videoType', VIDEO_TYPE.CUSTOM);
+		if (isEmpty(path)) {
+			dispatch(setVideoContentUrl(DEFAULT_AVATAR));
+			setValue('videoPath', DEFAULT_AVATAR);
 		} else {
-			setValue('videoType', VIDEO_TYPE.ANASTASIA);
+			dispatch(setVideoContentUrl(path));
+			setValue('videoPath', path);
 		}
-		setValue('videoPath', path);
-	};
-
-	const handleSelectAvatar = (type: VIDEO_TYPE) => {
-		setValue('videoType', type);
 	};
 
 	const handleChangeAudioPath = (path: string) => {
@@ -89,9 +105,7 @@ const Settings: React.FunctionComponent<IProps> = () => {
 
 			{isAvatarSelected && (
 				<VideoSettings
-					videoType={videoType}
 					videoPath={videoPath}
-					handleSelectAvatar={handleSelectAvatar}
 					handleVideoPath={handleVideoPath}
 				/>
 			)}

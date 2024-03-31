@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DEFAULT_VOICE } from 'library/consts/content';
+import getVideoUrl from 'library/utils/getVideoUrl';
 
 export type SystemState = {
 	isAuthorized: boolean;
@@ -7,7 +9,7 @@ export type SystemState = {
 
 const initialState: SystemState = {
 	isAuthorized: true,
-	videoContentUrl: 'https://cdn.jsdelivr.net/gh/SH20RAJ/Sopplayer@main/sample.mp4',
+	videoContentUrl: DEFAULT_VOICE,
 };
 
 const systemSlice = createSlice({
@@ -21,17 +23,13 @@ const systemSlice = createSlice({
 		}),
 		setVideoContentUrl: (state, action: PayloadAction<string>) => ({
 			...state,
-			videoContentUrl: action.payload,
-		}),
-		dropVideoContentUrl: (state) => ({
-			...state,
-			videoContentUrl: initialState.videoContentUrl,
+			videoContentUrl: getVideoUrl(action.payload),
 		}),
 	},
 });
 
 export const {
-	logout, login, setVideoContentUrl, dropVideoContentUrl,
+	logout, login, setVideoContentUrl,
 } = systemSlice.actions;
 
 export default systemSlice.reducer;
