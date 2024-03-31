@@ -8,7 +8,7 @@ import GENDER from 'library/consts/Gender';
 import LANGUAGE from 'library/consts/Language';
 
 interface IProps {
-	audioPath: string | undefined;
+	audioPath: string;
 	textValue: string;
 	language: LANGUAGE | undefined;
 	gender: GENDER | undefined;

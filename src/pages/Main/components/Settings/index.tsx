@@ -16,7 +16,7 @@ import VoiceSettings from './VoiceSettings';
 interface IFormData {
 	gender?: GENDER;
 	language?: LANGUAGE;
-	audioPath?: string;
+	audioPath: string;
 	text: string;
 	videoType: VIDEO_TYPE;
 	videoPath: string;
