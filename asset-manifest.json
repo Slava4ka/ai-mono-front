@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ai-mono-front/static/css/main.9e6c55e2.css",
-    "main.js": "/ai-mono-front/static/js/main.33ec8a84.js",
+    "main.js": "/ai-mono-front/static/js/main.e330b95a.js",
     "reactPlayerYouTube.js": "/ai-mono-front/static/js/reactPlayerYouTube.29dd23a3.chunk.js",
     "reactPlayerSoundCloud.js": "/ai-mono-front/static/js/reactPlayerSoundCloud.066eeb79.chunk.js",
     "reactPlayerVimeo.js": "/ai-mono-front/static/js/reactPlayerVimeo.f68dbde6.chunk.js",
@@ -28,7 +28,7 @@
     "static/media/addVideo.svg": "/ai-mono-front/static/media/addVideo.9d8f684f7cbda2d6631d1f3d507933c8.svg",
     "index.html": "/ai-mono-front/index.html",
     "main.9e6c55e2.css.map": "/ai-mono-front/static/css/main.9e6c55e2.css.map",
-    "main.33ec8a84.js.map": "/ai-mono-front/static/js/main.33ec8a84.js.map",
+    "main.e330b95a.js.map": "/ai-mono-front/static/js/main.e330b95a.js.map",
     "reactPlayerYouTube.29dd23a3.chunk.js.map": "/ai-mono-front/static/js/reactPlayerYouTube.29dd23a3.chunk.js.map",
     "reactPlayerSoundCloud.066eeb79.chunk.js.map": "/ai-mono-front/static/js/reactPlayerSoundCloud.066eeb79.chunk.js.map",
     "reactPlayerVimeo.f68dbde6.chunk.js.map": "/ai-mono-front/static/js/reactPlayerVimeo.f68dbde6.chunk.js.map",
@@ -46,6 +46,6 @@
   },
   "entrypoints": [
     "static/css/main.9e6c55e2.css",
-    "static/js/main.33ec8a84.js"
+    "static/js/main.e330b95a.js"
   ]
 }
