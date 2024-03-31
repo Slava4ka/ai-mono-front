@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import {
-	Box, IconButton, Slider, Stack,
+	Box,
+	IconButton,
+	Slider,
+	Stack,
 	Typography,
 } from '@mui/material';
 import formatTime from 'library/utils/formatTime';
@@ -12,23 +15,25 @@ import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import { OnProgressProps } from 'react-player/base';
+import { isNil } from 'ramda';
 
 import { useSelector } from 'react-redux';
 import { RootState } from 'main/rootReducer';
-import { rabbitStub } from 'library/consts/content';
 import logoMarkUrl from '../../../resources/images/logoMark.svg';
 
-interface IProps {}
+interface IProps {
+	url?: string;
+}
 
-const Player: React.FunctionComponent<IProps> = () => {
+const Player: React.FunctionComponent<IProps> = ({ url }) => {
 	const videoPlayerRef = useRef<ReactPlayer>(null);
-	const [src, setSrc] = useState('');
+	const [src, setSrc] = useState(url);
 
 	const contentUrl = useSelector((state: RootState) => state.systemSlice.videoContentUrl);
 
 	useEffect(() => {
-		setSrc(contentUrl);
-	}, [contentUrl]);
+		if (isNil(url)) setSrc(contentUrl);
+	}, [contentUrl, url]);
 
 	const [videoState, setVideoState] = useState({
 		isPlaying: false,
@@ -83,9 +88,10 @@ const Player: React.FunctionComponent<IProps> = () => {
 				position: 'relative',
 				overflow: 'hidden',
 				borderRadius: '8px',
-				minWidth: 924,
-				minHeight: 556,
+				width: 924,
+				height: 556,
 				justifyContent: 'flex-end',
+				background: '#FFF',
 			}}
 		>
 			<Box
@@ -105,13 +111,14 @@ const Player: React.FunctionComponent<IProps> = () => {
 				width="100%"
 				height="100%"
 				url={src}
-				onError={() => setSrc(rabbitStub)}
+				// onError={() => setSrc(rabbitStub)}
 				playing={isPlaying}
 				volume={volume}
 				muted={muted}
 				onProgress={progressHandler}
 				onBuffer={bufferStartHandler}
 				onBufferEnd={bufferEndHandler}
+				onEnded={playPauseHandler}
 
 			/>
 			<Stack

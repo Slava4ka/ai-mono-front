@@ -1,5 +1,6 @@
 import { baseApi } from 'library/utils/urls';
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 interface IResult {
@@ -17,15 +18,16 @@ export type Payload = {
 
 const useGenerateVideo = (): IResult => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const navigate = useNavigate();
 
 	const handleGenerateVideo = useCallback((payload: Payload) => {
 		setIsLoading(true);
 
 		baseApi.post('videos/generate', payload)
-			.then()
+			.then((res) => navigate(`/app/result/${res.data}`))
 			.catch(() => toast.error('Что-то пошло не так. Повторите попытку позже'))
 			.finally(() => setIsLoading(false));
-	}, []);
+	}, [navigate]);
 
 	return {
 		isLoading,

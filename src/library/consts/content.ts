@@ -1,4 +1,4 @@
-import getVideoUrl from 'library/utils/getVideoUrl';
+import { getVideoUrl } from 'library/utils/getVideoUrl';
 
 export const MALE_AVATAR_NAME = 'file_2024-03-31_11-07-39_user_video.mp4';
 export const FEMALE_AVATAR_NAME = 'file_2024-03-31_11-10-31_user_video.mp4';

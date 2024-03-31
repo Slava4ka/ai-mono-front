@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DEFAULT_VOICE } from 'library/consts/content';
-import getVideoUrl from 'library/utils/getVideoUrl';
+import { getVideoUrl } from 'library/utils/getVideoUrl';
 
 export type SystemState = {
 	isAuthorized: boolean;
