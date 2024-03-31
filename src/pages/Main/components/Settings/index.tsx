@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
+import { isEmpty } from 'ramda';
+import { useForm } from 'react-hook-form';
 import { Stack, Button } from '@mui/material';
 import SyncIcon from '@mui/icons-material/Sync';
-import { useForm } from 'react-hook-form';
 
 import ToggleButton from 'library/components/ToggleButton';
 import DATA_TYPE from 'library/consts/DataType';
 import GENDER from 'library/consts/Gender';
 import LANGUAGE from 'library/consts/Language';
-
 import VIDEO_TYPE from 'library/consts/VideoType';
-import { isEmpty } from 'ramda';
+
 import VideoSettings from './VideoSettings';
 import VoiceSettings from './VoiceSettings';
 
@@ -53,9 +53,11 @@ const Settings: React.FunctionComponent<IProps> = () => {
 
 	const handleVideoPath = (path: string) => {
 		if (!isEmpty(path)) {
-			setValue('videoPath', path);
 			setValue('videoType', VIDEO_TYPE.CUSTOM);
+		} else {
+			setValue('videoType', VIDEO_TYPE.ANASTASIA);
 		}
+		setValue('videoPath', path);
 	};
 
 	const handleSelectAvatar = (type: VIDEO_TYPE) => {

@@ -18,7 +18,7 @@ export default (
 	setProgress(0);
 
 	baseApi.post(
-		'/audio/upload',
+		`/${fieldName}/upload`,
 		formData,
 		{
 			headers: {

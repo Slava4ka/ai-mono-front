@@ -13,12 +13,17 @@ import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import { OnProgressProps } from 'react-player/base';
 
+import { useSelector } from 'react-redux';
+import { RootState } from 'main/rootReducer';
 import logoMarkUrl from '../../../resources/images/logoMark.svg';
 
 interface IProps {}
 
 const Player: React.FunctionComponent<IProps> = () => {
 	const videoPlayerRef = useRef<ReactPlayer>(null);
+
+	const contentUrl = useSelector((state: RootState) => state.systemSlice.videoContentUrl);
+
 	const [videoState, setVideoState] = useState({
 		isPlaying: false,
 		muted: false,
@@ -93,7 +98,7 @@ const Player: React.FunctionComponent<IProps> = () => {
 				ref={videoPlayerRef}
 				width="100%"
 				height="100%"
-				url="https://cdn.jsdelivr.net/gh/SH20RAJ/Sopplayer@main/sample.mp4"
+				url={contentUrl}
 				playing={isPlaying}
 				volume={volume}
 				muted={muted}
